@@ -1,15 +1,8 @@
-cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
-
-project(playing_cards_core)
-
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
-
 include_directories(includes)
 
-add_library(ProgBarLib STATIC src/aux/progbar.cc)
-add_library(FunctionalLib STATIC src/functional.cc)
-add_library(CardsLib STATIC src/cards.cc)
+add_library(ProgBarLibTest STATIC src/aux/progbar.cc)
+add_library(FunctionalLibTest STATIC src/functional.cc)
+add_library(CardsLibTest STATIC src/cards.cc)
 
 # Using GTest for unit testing
 include(FetchContent)
@@ -34,9 +27,9 @@ add_executable(
 
 target_link_libraries(
     cardstest
-    ProgBarLib
-    FunctionalLib
-    CardsLib
+    ProgBarLibTest
+    FunctionalLibTest
+    CardsLibTest
     gtest_main
 )
 
