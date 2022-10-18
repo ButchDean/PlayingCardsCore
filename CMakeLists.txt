@@ -1,8 +1,11 @@
-include_directories(includes)
+cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 
-add_library(ProgBarLibTest STATIC src/aux/progbar.cc)
-add_library(FunctionalLibTest STATIC src/functional.cc)
-add_library(CardsLibTest STATIC src/cards.cc)
+project(playing_cards_core)
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+
+include_directories(includes)
 
 # Using GTest for unit testing
 include(FetchContent)
@@ -20,18 +23,37 @@ endif()
 
 enable_testing()
 
-add_executable(
-    cardstest
-    unittest/cardstest.cc
-)
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    add_library(ProgBarLib STATIC src/aux/progbar.cc)
+    add_library(FunctionalLib STATIC src/functional.cc)
+    add_library(CardsLib STATIC src/cards.cc)
 
-target_link_libraries(
-    cardstest
-    ProgBarLibTest
-    FunctionalLibTest
-    CardsLibTest
-    gtest_main
-)
+    add_executable(
+        cardstest
+        unittest/cardstest.cc
+    )
+
+    target_link_libraries(
+        cardstest
+        ProgBarLib
+        FunctionalLib
+        CardsLib
+        gtest_main
+    )
+else()
+    add_executable(
+	cardstest
+	unittest/cardstest.cc
+	src/aux/progbar.cc
+	src/functional.cc
+	src/cards.cc
+    )
+
+    target_link_libraries(
+	cardstest
+	gtest_main
+    )
+endif()
 
 include(GoogleTest)
 gtest_discover_tests(cardstest)
