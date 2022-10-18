@@ -24,9 +24,9 @@ endif()
 enable_testing()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    add_library(ProgBarLib STATIC src/aux/progbar.cc)
-    add_library(FunctionalLib STATIC src/functional.cc)
-    add_library(CardsLib STATIC src/cards.cc)
+    add_library(ProgBarLibTest STATIC src/aux/progbar.cc)
+    add_library(FunctionalLibTest STATIC src/functional.cc)
+    add_library(CardsLibTest STATIC src/cards.cc)
 
     add_executable(
         cardstest
@@ -35,9 +35,9 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
     target_link_libraries(
         cardstest
-        ProgBarLib
-        FunctionalLib
-        CardsLib
+        ProgBarLibTest
+        FunctionalLibTest
+        CardsLibTest
         gtest_main
     )
 else()
