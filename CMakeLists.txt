@@ -40,19 +40,21 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         CardsLibTest
         gtest_main
     )
-else()
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     add_executable(
-	cardstest
-	unittest/cardstest.cc
-	src/aux/progbar.cc
-	src/functional.cc
-	src/cards.cc
-    )
+        cardstest
+        unittest/cardstest.cc
+        src/aux/progbar.cc
+        src/functional.cc
+        src/cards.cc
+        )
 
-    target_link_libraries(
-	cardstest
-	gtest_main
-    )
+        target_link_libraries(
+        cardstest
+        gtest_main
+        )
+else()
+    message(FATAL_ERROR "Only Mac and Linux officially supported.")
 endif()
 
 include(GoogleTest)
