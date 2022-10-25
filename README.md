@@ -1,3 +1,3 @@
 # PlayingCardsCore
 
-The core logic for Playing Cards projects intented to be used as subproject.
+The core logic for Playing Cards projects intended to be used as subproject.
