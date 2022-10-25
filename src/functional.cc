@@ -24,8 +24,6 @@ void DrawCard(std::unique_ptr<cards::CCardDeck>& deckPtr)
 
 		std::printf("Dealed card: %s\n", deckPtr->CardToStr(card).c_str());
 		std::printf("With value: %d\n", deckPtr->CardValue(card));
-
-		return;
 	}
 }
 
