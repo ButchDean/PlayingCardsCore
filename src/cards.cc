@@ -15,7 +15,7 @@ namespace cards
 		deck.clear();
 
 		for(const auto& c : cardspecs) {
-			deck.push_back(c.card);
+			deck.push_back(std::move(c.card));
 		}
 
 		std::printf("Deck size: %lu\n", deck.size());
@@ -66,10 +66,10 @@ namespace cards
 
 		for(int j = 0; j < randIterations; j++)
 		{
-			int posA = _GetRandomCardPos();
+			int posA = std::move(_GetRandomCardPos());
 			cardValA = deck[posA];
 
-			int posB = _GetRandomCardPos();
+			int posB = std::move(_GetRandomCardPos());
 			cardValB = deck[posB];
 
 			// Swap values
@@ -101,7 +101,7 @@ namespace cards
 
 	std::string CCardDeck::CardToStr(const CardRefs card) const
 	{
-		auto cardSearch = cardDetail.find(card);
+		auto cardSearch = std::move(cardDetail.find(card));
 
 		if(cardSearch == cardDetail.end())
 			return "Card string not found!";
@@ -111,7 +111,7 @@ namespace cards
 
 	int CCardDeck::CardValue(const CardRefs card) const
 	{
-		auto cardSearch = cardDetail.find(card);
+		auto cardSearch = std::move(cardDetail.find(card));
 
 		if(cardSearch == cardDetail.end())
 		{

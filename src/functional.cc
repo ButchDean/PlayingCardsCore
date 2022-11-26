@@ -18,7 +18,7 @@ void DrawCard(std::unique_ptr<cards::CCardDeck>& deckPtr)
 	if(card != cards::CardRefs::EMPTY_DECK)
 	{
 		mtx.lock();
-		card = deckPtr->Draw();
+		card = std::move(deckPtr->Draw());
 		drawCount++;
 		mtx.unlock();
 
