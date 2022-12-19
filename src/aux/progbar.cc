@@ -3,27 +3,32 @@
 //
 
 #include <cstdio>
+#include <string>
 
 typedef unsigned int uint;
 
-const uint TOTAL_BAR_LENGTH = 30;
+constexpr uint TOTAL_BAR_LENGTH = 30;
 
-void UpdateProgress(const uint pct, const uint size) {
-  const uint BARCOUNT = (pct + 1) * TOTAL_BAR_LENGTH / 100;
+void UpdateProgress(uint pct, const uint size) {
+    const uint BARCOUNT = (pct + 1) * TOTAL_BAR_LENGTH / 100;
 
-  std::printf("\rShuffling Deck: [");
+    auto printSegment = [](std::string&& s) {
+        std::printf("%s", s.c_str());
+    };
 
-  for(uint i = 0; i < BARCOUNT; i++) {
-    std::printf("=");
-  }
+    std::printf("\rShuffling Deck: [");
 
-  const uint BLANK_COUNT = TOTAL_BAR_LENGTH - BARCOUNT;
+    for(uint i = 0; i < BARCOUNT; i++) {
+        printSegment("=");
+    }
 
-  for(uint j = 0; j < BLANK_COUNT; j++) {
-    std::printf(" ");
-  }
+    uint BLANK_COUNT = TOTAL_BAR_LENGTH - BARCOUNT;
 
-  std::printf("] %d%% for %d cards", (pct == 0 ? 0 : pct + 1), size);
+    for(uint j = 0; j < BLANK_COUNT; j++) {
+        printSegment(" ");
+    }
 
-  std::fflush(stdout);
+    std::printf("] %d%% for %d cards", (pct == 0 ? 0 : pct + 1), size);
+
+    std::fflush(stdout);
 }

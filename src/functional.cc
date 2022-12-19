@@ -5,7 +5,7 @@ static cards::CardRefs card;
 static std::mutex mtx;
 unsigned int drawCount = 0, shuffleCount = 0;
 
-void InitDeck(std::unique_ptr<cards::CCardDeck>& deckPtr)
+void InitDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 {
 	std::lock_guard<std::mutex> lg(mtx);
 	deckPtr->Init();
@@ -13,12 +13,12 @@ void InitDeck(std::unique_ptr<cards::CCardDeck>& deckPtr)
 	shuffleCount++;
 }
 
-void DrawCard(std::unique_ptr<cards::CCardDeck>& deckPtr)
+void DrawCard(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 {
 	if(card != cards::CardRefs::EMPTY_DECK)
 	{
 		mtx.lock();
-		card = deckPtr->Draw();
+		card = std::move(deckPtr->Draw());
 		drawCount++;
 		mtx.unlock();
 
@@ -27,7 +27,7 @@ void DrawCard(std::unique_ptr<cards::CCardDeck>& deckPtr)
 	}
 }
 
-void ShuffleDeck(std::unique_ptr<cards::CCardDeck>& deckPtr)
+void ShuffleDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 {
 	std::lock_guard<std::mutex> lg(mtx);
 	deckPtr->Shuffle();
