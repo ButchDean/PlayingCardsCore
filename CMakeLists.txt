@@ -10,9 +10,9 @@ include_directories(includes)
 # Using GTest for unit testing
 include(FetchContent)
 FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG        release-1.11.0
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG        release-1.11.0
 )
 
 FetchContent_GetProperties(googletest)
@@ -25,7 +25,6 @@ enable_testing()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     add_library(ProgBarLibTest STATIC src/aux/progbar.cc)
-    add_library(FunctionalLibTest STATIC src/functional.cc)
     add_library(CardsLibTest STATIC src/cards.cc)
 
     add_executable(
@@ -36,7 +35,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     target_link_libraries(
         cardstest
         ProgBarLibTest
-        FunctionalLibTest
         CardsLibTest
         gtest_main
     )
@@ -45,14 +43,13 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         cardstest
         unittest/cardstest.cc
         src/aux/progbar.cc
-        src/functional.cc
         src/cards.cc
-        )
+    )
 
         target_link_libraries(
         cardstest
         gtest_main
-        )
+    )
 else()
     message(FATAL_ERROR "Only Mac and Linux officially supported.")
 endif()

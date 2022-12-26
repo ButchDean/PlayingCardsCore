@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include <progbar.h>
 #include <cards.h>
-#include <functional.h>
 
 #include <vector>
 

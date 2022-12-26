@@ -2,7 +2,6 @@
 #include <chrono>
 #include <random>
 #include <cmath>
-#include <functional>
 #include <cards.h>
 #include <progbar.h>
 
