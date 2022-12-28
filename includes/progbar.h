@@ -7,6 +7,6 @@
 
 typedef unsigned int uint;
 
-void UpdateProgress(const uint pct, const uint size);
+bool UpdateProgress(const uint pct, const uint size);
 
 #endif //_PROGBAR_H_

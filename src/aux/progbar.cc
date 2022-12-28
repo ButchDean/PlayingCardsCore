@@ -9,7 +9,7 @@ typedef unsigned int uint;
 
 constexpr uint TOTAL_BAR_LENGTH = 30;
 
-void UpdateProgress(uint pct, const uint size) {
+bool UpdateProgress(uint pct, const uint size) {
     const uint BARCOUNT = (pct + 1) * TOTAL_BAR_LENGTH / 100;
 
     auto printSegment = [](std::string&& s) {
@@ -31,4 +31,6 @@ void UpdateProgress(uint pct, const uint size) {
     std::printf("] %d%% for %d cards", (pct == 0 ? 0 : pct + 1), size);
 
     std::fflush(stdout);
+
+    return true;
 }
