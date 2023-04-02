@@ -1,6 +1,8 @@
 #ifndef _CARDS_MECHANIC_
 #define _CARDS_MECHANIC_
 
+#include <iostream>
+
 #include <deque>
 #include <unordered_map>
 #include <array>
@@ -85,7 +87,18 @@ namespace cards
 				cardspecs[48] = {CardRefs::DIAMONDS10, {"DIAMONDS10", 10}};
 				cardspecs[49] = {CardRefs::DIAMONDS_J, {"DIAMONDS_J", 11}};
 				cardspecs[50] = {CardRefs::DIAMONDS_Q, {"DIAMONDS_Q", 12}};
-				cardspecs[51] = {CardRefs::DIAMONDS_K, {"DIAMONDS_K", 13}};							
+				cardspecs[51] = {CardRefs::DIAMONDS_K, {"DIAMONDS_K", 13}};
+
+				// New approach (under construction)
+				std::array<std::string, 4> suit{"SPADES", "CLUBS", "HEARTS", "DIAMONDS"};
+				std::array<std::string, 13> face{"_A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "_J", "_Q", "_K"};
+
+				for(const auto& s : suit) {
+					for(const auto& f : face) {
+						std::cout << s + f << "\n";
+					}
+				}
+
 			}
 			~CCardDeck() = default;
 
