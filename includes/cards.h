@@ -93,9 +93,11 @@ namespace cards
 				std::array<std::string, 4> suit{"SPADES", "CLUBS", "HEARTS", "DIAMONDS"};
 				std::array<std::string, 13> face{"_A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "_J", "_Q", "_K"};
 
+				CardRefs cr;
+				unsigned int ctr = 0;
 				for(const auto& s : suit) {
 					for(const auto& f : face) {
-						std::cout << s + f << "\n";
+						//cardFullStr.push_back(s + f);
 					}
 				}
 
@@ -123,6 +125,7 @@ namespace cards
 			std::unordered_map<CardRefs, CardDetail> cardDetail;
 			std::array<cardSpecs, CARDDECKSIZE> cardspecs;
 			
+			CardRefs _CardRefFilter(unsigned int cvVal) const;
 			int _GetRandomCardPos();	
 	};
 }
