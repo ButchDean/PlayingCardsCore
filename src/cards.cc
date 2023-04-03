@@ -136,7 +136,7 @@ namespace cards
 		}
 
 		// Should never get here!
-		return CardRefs::EMPTY_DECK;
+		return CardRefs::INVALID_CARD;
 	}
 
 	int CCardDeck::_GetRandomCardPos() {
