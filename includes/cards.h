@@ -126,6 +126,7 @@ namespace cards
 			std::array<cardSpecs, CARDDECKSIZE> cardspecs;
 			
 			CardRefs _CardRefFilter(unsigned int cvVal) const;
+			int _CardRefFilterValue(const CardRefs crVal);
 			int _GetRandomCardPos();	
 	};
 }

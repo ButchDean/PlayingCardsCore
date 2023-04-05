@@ -135,8 +135,81 @@ namespace cards
 				break;
 		}
 
-		// Should never get here!
 		return CardRefs::INVALID_CARD;
+	}
+
+	int CCardDeck::_CardRefFilterValue(const CardRefs crVal) {
+		switch(crVal) {
+			case CardRefs::SPADES_A:
+			case CardRefs::CLUBS_A:
+			case CardRefs::HEARTS_A:
+			case CardRefs::DIAMONDS_A:
+				return 1;
+			case CardRefs::SPADES2:
+			case CardRefs::CLUBS2:
+			case CardRefs::HEARTS2:
+			case CardRefs::DIAMONDS2:
+				return 2;
+			case CardRefs::SPADES3:
+			case CardRefs::CLUBS3:
+			case CardRefs::HEARTS3:
+			case CardRefs::DIAMONDS3:
+				return 3;
+			case CardRefs::SPADES4:
+			case CardRefs::CLUBS4:
+			case CardRefs::HEARTS4:
+			case CardRefs::DIAMONDS4:
+				return 4;
+			case CardRefs::SPADES5:
+			case CardRefs::CLUBS5:
+			case CardRefs::HEARTS5:
+			case CardRefs::DIAMONDS5:
+				return 5;
+			case CardRefs::SPADES6:
+			case CardRefs::CLUBS6:
+			case CardRefs::HEARTS6:
+			case CardRefs::DIAMONDS6:
+				return 6;
+			case CardRefs::SPADES7:
+			case CardRefs::CLUBS7:
+			case CardRefs::HEARTS7:
+			case CardRefs::DIAMONDS7:
+				return 7;
+			case CardRefs::SPADES8:
+			case CardRefs::CLUBS8:
+			case CardRefs::HEARTS8:
+			case CardRefs::DIAMONDS8:
+				return 8;
+			case CardRefs::SPADES9:
+			case CardRefs::CLUBS9:
+			case CardRefs::HEARTS9:
+			case CardRefs::DIAMONDS9:
+				return 9;
+			case CardRefs::SPADES10:
+			case CardRefs::CLUBS10:
+			case CardRefs::HEARTS10:
+			case CardRefs::DIAMONDS10:
+				return 10;
+			case CardRefs::SPADES_J:
+			case CardRefs::CLUBS_J:
+			case CardRefs::HEARTS_J:
+			case CardRefs::DIAMONDS_J:
+				return 11;
+			case CardRefs::SPADES_Q:
+			case CardRefs::CLUBS_Q:
+			case CardRefs::HEARTS_Q:
+			case CardRefs::DIAMONDS_Q:
+				return 12;
+			case CardRefs::SPADES_K:
+			case CardRefs::CLUBS_K:
+			case CardRefs::HEARTS_K:
+			case CardRefs::DIAMONDS_K:
+				return 13;
+			default:
+				break;
+		}
+
+		return -1;
 	}
 
 	int CCardDeck::_GetRandomCardPos() {
