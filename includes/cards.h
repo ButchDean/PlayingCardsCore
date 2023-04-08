@@ -7,8 +7,17 @@
 #include <unordered_map>
 #include <array>
 #include <string>
+#include <stdexcept>
 
 #include <common.h>
+
+static int bad_card() {
+	throw std::runtime_error("ERROR: Bad card - CardRefs::INVALID_CARD");
+}
+
+static int bad_card_value() {
+	throw std::runtime_error("ERROR: Bad card value (-1)");
+}
 
 namespace cards
 {
@@ -39,8 +48,31 @@ namespace cards
 				unsigned int itr = 0;
 				for(const auto& s : suit) {
 					for(const auto& f : face) {
-						CardRefs cr = _CardRefFilter(itr);
-						cardspecs[itr] = {cr, {s + f, _CardRefFilterValue(cr)}};
+						CardRefs cr;
+						try{
+							cr = _CardRefFilter(itr);
+
+							if(cr == CardRefs::INVALID_CARD) {
+								bad_card();
+							}
+						}
+						catch(...) {
+							std::cout << "Invalid card deck due to invalid card.\n";
+						}
+
+						int crv;
+						try {
+							crv = _CardRefFilterValue(cr);
+
+							if(crv == -1){
+								bad_card_value();
+							}
+						}
+						catch(...) {
+							std::cout << "Invalid card value with -1 returned.\n";
+						}
+
+						cardspecs[itr] = {cr, {s + f, crv}};
 						itr++;
 					}
 				}
