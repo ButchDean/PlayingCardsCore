@@ -11,14 +11,6 @@
 
 #include <common.h>
 
-static int bad_card() {
-	throw std::runtime_error("ERROR: Bad card - CardRefs::INVALID_CARD");
-}
-
-static int bad_card_value() {
-	throw std::runtime_error("ERROR: Bad card value (-1)");
-}
-
 namespace cards
 {
 	enum class CardRefs { SPADES_A = 0, SPADES2, SPADES3, SPADES4, SPADES5, SPADES6, SPADES7, SPADES8, SPADES9, SPADES10, SPADES_J, SPADES_Q, SPADES_K,
@@ -53,7 +45,7 @@ namespace cards
 							cr = _CardRefFilter(itr);
 
 							if(cr == CardRefs::INVALID_CARD) {
-								bad_card();
+								throw std::runtime_error("ERROR: Bad card - CardRefs::INVALID_CARD");
 							}
 						}
 						catch(...) {
@@ -65,7 +57,7 @@ namespace cards
 							crv = _CardRefFilterValue(cr);
 
 							if(crv == -1){
-								bad_card_value();
+								throw std::runtime_error("ERROR: Bad card value (-1)");
 							}
 						}
 						catch(...) {
