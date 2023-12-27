@@ -1,14 +1,14 @@
-#include <cstdio>
 #include <chrono>
 #include <random>
 #include <cmath>
 #include <cards.h>
 #include <progbar.h>
+#include <spdlog/spdlog.h>
 
 namespace cards
 {
 	void CCardDeck::Init() {
-		std::puts("Initializing default sorted deck...");
+		spdlog::info("Initializing default sorted deck...");
 
 		deck.clear();
 
@@ -16,7 +16,7 @@ namespace cards
 			deck.push_back(std::move(c.card));
 		}
 
-		std::printf("Deck size: %lu\n", deck.size());
+		spdlog::info("Deck size: {}", deck.size());
 
 		// Populate card values and other details key-value pairs.
 		cardDetail.clear();
@@ -231,13 +231,13 @@ namespace cards
 
 		if(deckSize == 0)
 		{
-			std::puts("Deck size is empty, so there isn't anything to shuffle.");
+			spdlog::warn("Deck size is empty, so there isn't anything to shuffle.");
 			return;
 		}
 		else
 		if(deckSize == 1)
 		{
-			std::puts("Deck only contains one card, so no need to shuffle.");
+			spdlog::info("Deck only contains one card, so no need to shuffle.");
 			return;
 		}
 
@@ -263,16 +263,16 @@ namespace cards
 			const int PROG_DONE = j / randIterations * 100;
 			UpdateProgress(PROG_DONE, deckSize);
 		}
+		puts("\n");
 	}
 
 	CardRefs CCardDeck::Draw() {
 		if(deck.empty())
 		{
-			std::puts("Attempted to deal but deck is empty.");
+			spdlog::warn("Attempted to deal but deck is empty.");
 			return CardRefs::EMPTY_DECK;
 		}
 
-		std::puts("\nDealing card...");
 		CardRefs currentCard = deck[0];
 
 		// Remove top card from deck.
@@ -295,7 +295,7 @@ namespace cards
 
 		if(cardSearch == cardDetail.end())
 		{
-			std::puts("Card value not found!");
+			spdlog::warn("Card value not found!");
 			return -1;
 		}
 

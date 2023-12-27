@@ -38,7 +38,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         ${CMAKE_CURRENT_BINARY_DIR}/submodules/spdlog/libspdlog.dylib)    
 
     add_library(ProgBarLibTest STATIC src/aux/progbar.cc)
-    add_library(CardsLibTest STATIC src/cards.cc)
+    add_library(CardsLib STATIC src/cards.cc)
 
     add_executable(
         cardstest
@@ -48,23 +48,12 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     target_link_libraries(
         cardstest
         ProgBarLibTest
-        CardsLibTest
+        CardsLib
         gtest_main
         spdlog
     )
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     message("** Building for Mac OS (TODO)")
-    # add_executable(
-    #     cardstest
-    #     unittest/cardstest.cc
-    #     src/aux/progbar.cc
-    #     src/cards.cc
-    # )
-
-    #     target_link_libraries(
-    #     cardstest
-    #     gtest_main
-    # )
 else()
     message(FATAL_ERROR "Only Mac and Linux officially supported.")
 endif()
