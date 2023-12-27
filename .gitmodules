@@ -1,0 +1,8 @@
+[submodule "submodules/spdlog"]
+	path = submodules/spdlog
+	url = git@github.com:ButchDean/spdlog.git
+	branch = trim
+[submodule "submodules/rapidjson"]
+	path = submodules/rapidjson
+	url = git@github.com:ButchDean/rapidjson.git
+	branch = trim

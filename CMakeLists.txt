@@ -24,6 +24,19 @@ endif()
 enable_testing()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    message("** Building for Mac OS")
+    add_subdirectory(${CMAKE_SOURCE_DIR}/submodules/rapidjson)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/submodules/spdlog)
+
+    include_directories(
+        /System/Library/Frameworks
+        ${CMAKE_SOURCE_DIR}/submodules/rapidjson/include
+        ${CMAKE_SOURCE_DIR}/submodules/spdlog/include
+    )
+
+    set_target_properties(spdlog PROPERTIES IMPORTED_LOCATION 
+        ${CMAKE_CURRENT_BINARY_DIR}/submodules/spdlog/libspdlog.dylib)    
+
     add_library(ProgBarLibTest STATIC src/aux/progbar.cc)
     add_library(CardsLibTest STATIC src/cards.cc)
 
@@ -37,19 +50,21 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         ProgBarLibTest
         CardsLibTest
         gtest_main
+        spdlog
     )
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    add_executable(
-        cardstest
-        unittest/cardstest.cc
-        src/aux/progbar.cc
-        src/cards.cc
-    )
+    message("** Building for Mac OS (TODO)")
+    # add_executable(
+    #     cardstest
+    #     unittest/cardstest.cc
+    #     src/aux/progbar.cc
+    #     src/cards.cc
+    # )
 
-        target_link_libraries(
-        cardstest
-        gtest_main
-    )
+    #     target_link_libraries(
+    #     cardstest
+    #     gtest_main
+    # )
 else()
     message(FATAL_ERROR "Only Mac and Linux officially supported.")
 endif()
