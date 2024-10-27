@@ -2,12 +2,13 @@
 #define _CARDS_MECHANIC_
 
 #include <iostream>
-
 #include <deque>
 #include <unordered_map>
 #include <array>
 #include <string>
 #include <stdexcept>
+
+#include <rapidjson/rapidjson.h>
 
 #include <common.h>
 

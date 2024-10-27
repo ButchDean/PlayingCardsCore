@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30 FATAL_ERROR)
 
 project(playing_cards_core)
 
@@ -12,20 +12,30 @@ include(FetchContent)
 FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG        release-1.11.0
+    GIT_TAG        v1.15.2
 )
 
 FetchContent_GetProperties(googletest)
-if(NOT googletest_POPULATED)
-    FetchContent_Populate(googletest)
-    add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
-endif()
+FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    message("** Building for Mac OS")
+    add_subdirectory(${CMAKE_SOURCE_DIR}/submodules/rapidjson)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/submodules/spdlog)
+
+    include_directories(
+        /System/Library/Frameworks
+        ${CMAKE_SOURCE_DIR}/submodules/rapidjson/include
+        ${CMAKE_SOURCE_DIR}/submodules/spdlog/include
+    )
+
+    set_target_properties(spdlog PROPERTIES IMPORTED_LOCATION 
+        ${CMAKE_CURRENT_BINARY_DIR}/submodules/spdlog/libspdlog.dylib)    
+
     add_library(ProgBarLibTest STATIC src/aux/progbar.cc)
-    add_library(CardsLibTest STATIC src/cards.cc)
+    add_library(CardsLib STATIC src/cards.cc)
 
     add_executable(
         cardstest
@@ -35,21 +45,12 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     target_link_libraries(
         cardstest
         ProgBarLibTest
-        CardsLibTest
+        CardsLib
         gtest_main
+        spdlog
     )
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    add_executable(
-        cardstest
-        unittest/cardstest.cc
-        src/aux/progbar.cc
-        src/cards.cc
-    )
-
-        target_link_libraries(
-        cardstest
-        gtest_main
-    )
+    message("** Building for Mac OS (TODO)")
 else()
     message(FATAL_ERROR "Only Mac and Linux officially supported.")
 endif()
